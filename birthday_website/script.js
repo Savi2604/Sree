@@ -338,6 +338,8 @@ if (secretKeyInput) {
   });
 }
 
+resetLockScreen();
+
 window.addEventListener('load', () => {
   resetLockScreen();
   if (secretKeyInput) {
