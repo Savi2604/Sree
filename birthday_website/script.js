@@ -30,6 +30,33 @@ const finalNote = document.querySelector('.final-note');
 const finalBirthday = document.querySelector('.final-birthday');
 const photoVariants = ['variant-1', 'variant-2', 'variant-3', 'variant-4', 'variant-5', 'variant-6', 'variant-7', 'variant-8'];
 const captionVariants = ['variant-1', 'variant-2', 'variant-3', 'variant-4', 'variant-5', 'variant-6', 'variant-7', 'variant-8'];
+const secretKeyValue = '20-08-2005';
+
+function resetLockScreen() {
+  if (secretScreen) {
+    secretScreen.classList.remove('hidden');
+    secretScreen.classList.remove('unlocking');
+  }
+
+  if (siteMain) {
+    siteMain.classList.add('hidden');
+    siteMain.classList.remove('visible');
+  }
+
+  if (musicWidget) {
+    musicWidget.classList.add('hidden');
+  }
+
+  if (secretError) {
+    secretError.textContent = '';
+    secretError.classList.remove('visible');
+  }
+
+  if (secretKeyInput) {
+    secretKeyInput.value = '';
+    secretKeyInput.blur();
+  }
+}
 
 function createHearts() {
   const hearts = document.getElementById('hearts');
@@ -244,17 +271,29 @@ function toggleMusic() {
 }
 
 function unlockWebsite() {
-  secretScreen.classList.add('hidden');
-  siteMain.classList.remove('hidden');
-  siteMain.classList.add('visible');
-  musicWidget.classList.remove('hidden');
+  if (secretScreen) {
+    secretScreen.classList.add('hidden');
+  }
+
+  if (siteMain) {
+    siteMain.classList.remove('hidden');
+    siteMain.classList.add('visible');
+  }
+
+  if (musicWidget) {
+    musicWidget.classList.remove('hidden');
+  }
 
   if (audio) {
     audio.volume = 0.5;
     audio.play().then(() => {
-      musicToggle.classList.add('is-playing');
+      if (musicToggle) {
+        musicToggle.classList.add('is-playing');
+      }
     }).catch(() => {
-      musicStatus.textContent = 'Tap to play music';
+      if (musicStatus) {
+        musicStatus.textContent = 'Tap to play music';
+      }
     });
   }
 
@@ -265,7 +304,7 @@ function handleSecretSubmit(event) {
   event.preventDefault();
   const key = secretKeyInput.value.trim();
 
-  if (key === '20-08-2005') {
+  if (key === secretKeyValue) {
     secretError.textContent = '';
     secretError.classList.remove('visible');
     secretScreen.classList.add('unlocking');
@@ -291,21 +330,24 @@ secretKeyInput.addEventListener('keydown', (event) => {
   }
 });
 
+if (secretKeyInput) {
+  secretKeyInput.addEventListener('focus', () => {
+    if (secretError) {
+      secretError.classList.remove('visible');
+    }
+  });
+}
+
 window.addEventListener('load', () => {
-  if (siteMain) {
-    siteMain.classList.add('hidden');
-  }
-
-  if (secretScreen) {
-    secretScreen.classList.remove('hidden');
-  }
-
+  resetLockScreen();
   if (secretKeyInput) {
     secretKeyInput.focus();
   }
 });
 
-musicToggle.addEventListener('click', toggleMusic);
+if (musicToggle) {
+  musicToggle.addEventListener('click', toggleMusic);
+}
 
 createHearts();
 createStars();
