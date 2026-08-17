@@ -57,6 +57,45 @@ function createStars() {
   }
 }
 
+function createBackgroundLayer() {
+  const background = document.getElementById('floating-background');
+  if (!background) return;
+
+  for (let i = 0; i < 22; i += 1) {
+    const heart = document.createElement('span');
+    heart.className = 'floating-heart';
+    heart.textContent = Math.random() > 0.5 ? '♡' : '♥';
+    heart.style.left = `${Math.random() * 100}%`;
+    heart.style.bottom = `${-12 - Math.random() * 18}%`;
+    heart.style.fontSize = `${10 + Math.random() * 16}px`;
+    heart.style.opacity = `${0.25 + Math.random() * 0.6}`;
+    heart.style.animationDuration = `${10 + Math.random() * 18}s`;
+    heart.style.animationDelay = `${Math.random() * 8}s`;
+    background.appendChild(heart);
+  }
+
+  for (let i = 0; i < 10; i += 1) {
+    const butterfly = document.createElement('span');
+    butterfly.className = 'floating-butterfly';
+    butterfly.style.left = `${Math.random() * 100}%`;
+    butterfly.style.top = `${Math.random() * 95}%`;
+    butterfly.style.setProperty('--duration', `${16 + Math.random() * 18}s`);
+    butterfly.style.opacity = `${0.25 + Math.random() * 0.55}`;
+    butterfly.style.transform = `scale(${0.7 + Math.random() * 0.7})`;
+    background.appendChild(butterfly);
+  }
+
+  for (let i = 0; i < 32; i += 1) {
+    const spark = document.createElement('span');
+    spark.className = 'floating-spark';
+    spark.style.left = `${Math.random() * 100}%`;
+    spark.style.top = `${Math.random() * 100}%`;
+    spark.style.setProperty('--duration', `${2 + Math.random() * 5}s`);
+    spark.style.opacity = `${0.2 + Math.random() * 0.8}`;
+    background.appendChild(spark);
+  }
+}
+
 function showSection(sectionId) {
   const section = document.getElementById(sectionId);
   if (!section) return;
