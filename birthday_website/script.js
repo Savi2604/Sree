@@ -55,7 +55,6 @@ function resetLockScreen() {
 
   if (secretKeyInput) {
     secretKeyInput.value = '';
-    secretKeyInput.blur();
   }
 }
 
@@ -359,7 +358,6 @@ if (secretKeyInput) {
 resetLockScreen();
 
 window.addEventListener('load', () => {
-  resetLockScreen();
   if (secretKeyInput) {
     secretKeyInput.focus();
   }
