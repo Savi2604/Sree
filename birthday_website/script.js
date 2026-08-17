@@ -331,53 +331,59 @@ function handleSecretSubmit(event) {
   }
 }
 
-if (secretForm) {
-  secretForm.addEventListener('submit', handleSecretSubmit);
-}
-
-if (unlockButton) {
-  unlockButton.addEventListener('click', handleSecretSubmit);
-}
-
-if (secretKeyInput) {
-  secretKeyInput.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-      handleSecretSubmit(event);
-    }
-  });
-}
-
-if (secretKeyInput) {
-  secretKeyInput.addEventListener('focus', () => {
-    if (secretError) {
-      secretError.classList.remove('visible');
-    }
-  });
-}
-
-resetLockScreen();
-
-window.addEventListener('load', () => {
-  if (secretKeyInput) {
-    secretKeyInput.focus();
+function initializeWebsite() {
+  if (window.__birthdayWebsiteInitialized) {
+    return;
   }
-});
 
-if (musicToggle) {
-  musicToggle.addEventListener('click', toggleMusic);
+  window.__birthdayWebsiteInitialized = true;
+
+  if (secretForm) {
+    secretForm.addEventListener('submit', handleSecretSubmit);
+  }
+
+  if (unlockButton) {
+    unlockButton.addEventListener('click', handleSecretSubmit);
+  }
+
+  if (secretKeyInput) {
+    secretKeyInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        handleSecretSubmit(event);
+      }
+    });
+
+    secretKeyInput.addEventListener('focus', () => {
+      if (secretError) {
+        secretError.classList.remove('visible');
+      }
+    });
+  }
+
+  if (musicToggle) {
+    musicToggle.addEventListener('click', toggleMusic);
+  }
+
+  if (audio) {
+    audio.addEventListener('play', () => {
+      musicStatus.textContent = '♫ Playing our memories...';
+      musicToggle.classList.add('is-playing');
+    });
+
+    audio.addEventListener('pause', () => {
+      musicStatus.textContent = '♫ Music paused';
+      musicToggle.classList.remove('is-playing');
+    });
+  }
+
+  resetLockScreen();
+  window.addEventListener('load', () => {
+    if (secretKeyInput) {
+      secretKeyInput.focus();
+    }
+  });
 }
 
+initializeWebsite();
 createHearts();
 createStars();
-
-if (audio) {
-  audio.addEventListener('play', () => {
-    musicStatus.textContent = '♫ Playing our memories...';
-    musicToggle.classList.add('is-playing');
-  });
-
-  audio.addEventListener('pause', () => {
-    musicStatus.textContent = '♫ Music paused';
-    musicToggle.classList.remove('is-playing');
-  });
-}
