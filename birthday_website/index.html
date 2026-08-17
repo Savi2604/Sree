@@ -14,21 +14,7 @@
     <div id="hearts" aria-hidden="true"></div>
     <div id="floating-background" class="floating-background" aria-hidden="true"></div>
 
-    <div id="secret-screen" class="secret-screen" aria-live="polite">
-      <div id="secret-card" class="secret-card">
-        <div class="lock-icon">♡</div>
-        <p class="secret-kicker">A little secret awaits...</p>
-        <h2>Enter the secret key to unlock our memories</h2>
-        <form id="secret-form" novalidate>
-          <label class="sr-only" for="secret-key">Secret key</label>
-          <input id="secret-key" name="secret-key" type="password" placeholder="Enter the secret key" autocomplete="off" autofocus />
-          <button id="unlock-button" type="submit">Unlock</button>
-        </form>
-        <p id="secret-error" class="secret-error"></p>
-      </div>
-    </div>
-
-    <div id="music-widget" class="music-widget hidden" aria-live="polite">
+    <div id="music-widget" class="music-widget" aria-live="polite">
       <button id="music-toggle" type="button" class="music-toggle">
         <span class="music-icon">♫</span>
         <span id="music-status">Playing our memories...</span>

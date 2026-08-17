@@ -9,12 +9,6 @@ const photos = [
   { src: 'assets/memory-8.jpg', caption: 'And if I could choose one thing for our future,\nit would be to make many more memories like these.' }
 ];
 
-const secretScreen = document.getElementById('secret-screen');
-const secretCard = document.getElementById('secret-card');
-const secretForm = document.getElementById('secret-form');
-const secretKeyInput = document.getElementById('secret-key');
-const unlockButton = document.getElementById('unlock-button');
-const secretError = document.getElementById('secret-error');
 const siteMain = document.getElementById('site-main');
 const musicWidget = document.getElementById('music-widget');
 const musicToggle = document.getElementById('music-toggle');
@@ -31,30 +25,15 @@ const finalNote = document.querySelector('.final-note');
 const finalBirthday = document.querySelector('.final-birthday');
 const photoVariants = ['variant-1', 'variant-2', 'variant-3', 'variant-4', 'variant-5', 'variant-6', 'variant-7', 'variant-8'];
 const captionVariants = ['variant-1', 'variant-2', 'variant-3', 'variant-4', 'variant-5', 'variant-6', 'variant-7', 'variant-8'];
-const secretKeyValue = '20-08-2005';
 
 function resetLockScreen() {
-  if (secretScreen) {
-    secretScreen.classList.remove('hidden');
-    secretScreen.classList.remove('unlocking');
-  }
-
   if (siteMain) {
-    siteMain.classList.add('hidden');
-    siteMain.classList.remove('visible');
+    siteMain.classList.remove('hidden');
+    siteMain.classList.add('visible');
   }
 
   if (musicWidget) {
-    musicWidget.classList.add('hidden');
-  }
-
-  if (secretError) {
-    secretError.textContent = '';
-    secretError.classList.remove('visible');
-  }
-
-  if (secretKeyInput) {
-    secretKeyInput.value = '';
+    musicWidget.classList.remove('hidden');
   }
 }
 
@@ -271,10 +250,6 @@ function toggleMusic() {
 }
 
 function unlockWebsite() {
-  if (secretScreen) {
-    secretScreen.classList.add('hidden');
-  }
-
   if (siteMain) {
     siteMain.classList.remove('hidden');
     siteMain.classList.add('visible');
@@ -300,65 +275,12 @@ function unlockWebsite() {
   setTimeout(() => showPhoto(0), 300);
 }
 
-function handleSecretSubmit(event) {
-  if (event) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-
-  if (!secretKeyInput || !secretError || !secretScreen || !secretCard) {
-    return;
-  }
-
-  const key = secretKeyInput.value.trim();
-
-  if (key === secretKeyValue) {
-    secretError.textContent = '';
-    secretError.classList.remove('visible');
-    secretScreen.classList.add('unlocking');
-    secretCard.classList.add('shake');
-    setTimeout(() => {
-      unlockWebsite();
-    }, 320);
-  } else {
-    secretError.textContent = "Oops... that's not the key ♡ Try again.";
-    secretError.classList.add('visible');
-    secretCard.classList.remove('shake');
-    void secretCard.offsetWidth;
-    secretCard.classList.add('shake');
-    secretKeyInput.value = '';
-    secretKeyInput.focus();
-  }
-}
-
 function initializeWebsite() {
   if (window.__birthdayWebsiteInitialized) {
     return;
   }
 
   window.__birthdayWebsiteInitialized = true;
-
-  if (secretForm) {
-    secretForm.addEventListener('submit', handleSecretSubmit);
-  }
-
-  if (unlockButton) {
-    unlockButton.addEventListener('click', handleSecretSubmit);
-  }
-
-  if (secretKeyInput) {
-    secretKeyInput.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') {
-        handleSecretSubmit(event);
-      }
-    });
-
-    secretKeyInput.addEventListener('focus', () => {
-      if (secretError) {
-        secretError.classList.remove('visible');
-      }
-    });
-  }
 
   if (musicToggle) {
     musicToggle.addEventListener('click', toggleMusic);
@@ -377,11 +299,6 @@ function initializeWebsite() {
   }
 
   resetLockScreen();
-  window.addEventListener('load', () => {
-    if (secretKeyInput) {
-      secretKeyInput.focus();
-    }
-  });
 }
 
 initializeWebsite();
