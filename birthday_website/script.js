@@ -150,7 +150,9 @@ function revealWishes() {
 
 function revealFinal() {
   const finalSection = document.getElementById('final-block');
-  finalSection.classList.add('visible');
+  if (finalSection) {
+    finalSection.classList.add('visible');
+  }
 
   finalText.forEach((line, index) => {
     setTimeout(() => {
@@ -167,11 +169,15 @@ function revealFinal() {
   }, 4300);
 
   setTimeout(() => {
-    finalNote.classList.add('visible');
+    if (finalNote) {
+      finalNote.classList.add('visible');
+    }
   }, 6200);
 
   setTimeout(() => {
-    finalBirthday.classList.add('visible');
+    if (finalBirthday) {
+      finalBirthday.classList.add('visible');
+    }
   }, 7600);
 }
 
@@ -286,7 +292,17 @@ secretKeyInput.addEventListener('keydown', (event) => {
 });
 
 window.addEventListener('load', () => {
-  secretKeyInput.focus();
+  if (siteMain) {
+    siteMain.classList.add('hidden');
+  }
+
+  if (secretScreen) {
+    secretScreen.classList.remove('hidden');
+  }
+
+  if (secretKeyInput) {
+    secretKeyInput.focus();
+  }
 });
 
 musicToggle.addEventListener('click', toggleMusic);
