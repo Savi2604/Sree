@@ -285,6 +285,10 @@ secretKeyInput.addEventListener('keydown', (event) => {
   }
 });
 
+window.addEventListener('load', () => {
+  secretKeyInput.focus();
+});
+
 musicToggle.addEventListener('click', toggleMusic);
 
 createHearts();
