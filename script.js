@@ -22,11 +22,15 @@ const audio = document.getElementById('memory-audio');
 const photoCard = document.getElementById('photo-card');
 const memoryImage = document.getElementById('memory-image');
 const memoryCaption = document.getElementById('memory-caption');
+const captionBox = document.getElementById('caption-box');
 const messages = document.querySelectorAll('.message-line');
 const wishes = document.querySelectorAll('.wish-line');
 const finalText = document.querySelectorAll('.final-text');
 const finalNote = document.querySelector('.final-note');
 const finalBirthday = document.querySelector('.final-birthday');
+const photoVariants = ['variant-1', 'variant-2', 'variant-3', 'variant-4', 'variant-5', 'variant-6', 'variant-7', 'variant-8'];
+const captionVariants = ['variant-1', 'variant-2', 'variant-3', 'variant-4', 'variant-5', 'variant-6', 'variant-7', 'variant-8'];
+
 function createHearts() {
   const hearts = document.getElementById('hearts');
   for (let i = 0; i < 18; i += 1) {
@@ -139,32 +143,40 @@ function showPhoto(index) {
   clearTimeout(photoTimer);
 
   const photo = photos[index];
-  const isEven = index % 2 === 0;
-  const animationClass = isEven ? 'zoom-animate' : 'slide-animate';
+  const variantClass = photoVariants[index % photoVariants.length];
+  const captionVariantClass = captionVariants[index % captionVariants.length];
 
-  photoCard.classList.remove('show', 'zoom-animate', 'slide-animate');
+  photoCard.classList.remove('show', 'photo-leaving', 'variant-1', 'variant-2', 'variant-3', 'variant-4', 'variant-5', 'variant-6', 'variant-7', 'variant-8');
+  captionBox.classList.remove('visible', 'variant-1', 'variant-2', 'variant-3', 'variant-4', 'variant-5', 'variant-6', 'variant-7', 'variant-8');
   void photoCard.offsetWidth;
 
   memoryImage.src = photo.src;
   memoryImage.alt = `Memory ${index + 1}`;
   memoryCaption.innerHTML = photo.caption.replace(/\n/g, '<br>');
 
-  photoCard.classList.add(animationClass);
-  setTimeout(() => {
-    photoCard.classList.add('show');
-  }, 80);
+  photoCard.classList.add(variantClass, 'show');
+  captionBox.classList.add(captionVariantClass);
 
-  const delay = 4400;
+  setTimeout(() => {
+    captionBox.classList.add('visible');
+  }, 900);
+
+  const delay = 5200;
   photoTimer = setTimeout(() => {
-    currentPhoto += 1;
-    if (currentPhoto < photos.length) {
-      showPhoto(currentPhoto);
-    } else {
-      document.getElementById('little-something').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setTimeout(revealMessages, 500);
-      setTimeout(revealWishes, 9000);
-      setTimeout(revealFinal, 17000);
-    }
+    photoCard.classList.add('photo-leaving');
+    captionBox.classList.remove('visible');
+
+    setTimeout(() => {
+      currentPhoto += 1;
+      if (currentPhoto < photos.length) {
+        showPhoto(currentPhoto);
+      } else {
+        document.getElementById('little-something').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(revealMessages, 500);
+        setTimeout(revealWishes, 9000);
+        setTimeout(revealFinal, 17000);
+      }
+    }, 900);
   }, delay);
 }
 
@@ -174,12 +186,15 @@ function toggleMusic() {
   if (audio.paused) {
     audio.play().then(() => {
       musicStatus.textContent = 'Playing our memories...';
+      musicToggle.classList.add('is-playing');
     }).catch(() => {
       musicStatus.textContent = 'Tap to play music';
+      musicToggle.classList.remove('is-playing');
     });
   } else {
     audio.pause();
     musicStatus.textContent = 'Music paused';
+    musicToggle.classList.remove('is-playing');
   }
 }
 
@@ -191,12 +206,14 @@ function unlockWebsite() {
 
   if (audio) {
     audio.volume = 0.5;
-    audio.play().catch(() => {
+    audio.play().then(() => {
+      musicToggle.classList.add('is-playing');
+    }).catch(() => {
       musicStatus.textContent = 'Tap to play music';
     });
   }
 
-  showPhoto(0);
+  setTimeout(() => showPhoto(0), 300);
 }
 
 function handleSecretSubmit(event) {
@@ -205,9 +222,15 @@ function handleSecretSubmit(event) {
 
   if (key === '20-08-2005') {
     secretError.textContent = '';
-    unlockWebsite();
+    secretError.classList.remove('visible');
+    secretScreen.classList.add('unlocking');
+    secretCard.classList.add('shake');
+    setTimeout(() => {
+      unlockWebsite();
+    }, 320);
   } else {
     secretError.textContent = "Oops... that's not the key ♡ Try again.";
+    secretError.classList.add('visible');
     secretCard.classList.remove('shake');
     void secretCard.offsetWidth;
     secretCard.classList.add('shake');
@@ -231,9 +254,11 @@ createStars();
 if (audio) {
   audio.addEventListener('play', () => {
     musicStatus.textContent = '♫ Playing our memories...';
+    musicToggle.classList.add('is-playing');
   });
 
   audio.addEventListener('pause', () => {
     musicStatus.textContent = '♫ Music paused';
+    musicToggle.classList.remove('is-playing');
   });
 }
