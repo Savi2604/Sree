@@ -13,6 +13,7 @@ const secretScreen = document.getElementById('secret-screen');
 const secretCard = document.getElementById('secret-card');
 const secretForm = document.getElementById('secret-form');
 const secretKeyInput = document.getElementById('secret-key');
+const unlockButton = document.getElementById('unlock-button');
 const secretError = document.getElementById('secret-error');
 const siteMain = document.getElementById('site-main');
 const musicWidget = document.getElementById('music-widget');
@@ -301,7 +302,15 @@ function unlockWebsite() {
 }
 
 function handleSecretSubmit(event) {
-  event.preventDefault();
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  if (!secretKeyInput || !secretError || !secretScreen || !secretCard) {
+    return;
+  }
+
   const key = secretKeyInput.value.trim();
 
   if (key === secretKeyValue) {
@@ -323,12 +332,21 @@ function handleSecretSubmit(event) {
   }
 }
 
-secretForm.addEventListener('submit', handleSecretSubmit);
-secretKeyInput.addEventListener('keydown', (event) => {
-  if (event.key === 'Enter') {
-    handleSecretSubmit(event);
-  }
-});
+if (secretForm) {
+  secretForm.addEventListener('submit', handleSecretSubmit);
+}
+
+if (unlockButton) {
+  unlockButton.addEventListener('click', handleSecretSubmit);
+}
+
+if (secretKeyInput) {
+  secretKeyInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      handleSecretSubmit(event);
+    }
+  });
+}
 
 if (secretKeyInput) {
   secretKeyInput.addEventListener('focus', () => {
