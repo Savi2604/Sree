@@ -298,7 +298,9 @@ function initializeWebsite() {
     });
   }
 
-  resetLockScreen();
+  siteMain?.classList.remove('hidden');
+  siteMain?.classList.add('visible');
+  musicWidget?.classList.remove('hidden');
 }
 
 initializeWebsite();
