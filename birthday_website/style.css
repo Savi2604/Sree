@@ -802,6 +802,10 @@ a {
   overflow: hidden;
 }
 
+.final-block.visible .final-inner {
+  animation: finalSceneBloom 1.2s ease;
+}
+
 .final-block::before {
   content: "";
   position: absolute;
@@ -862,6 +866,7 @@ a {
 .final-text.visible {
   opacity: 1;
   transform: translateY(0);
+  animation: finalLineFloat 0.8s ease both;
 }
 
 .final-text.gap {
@@ -876,6 +881,17 @@ a {
   opacity: 0;
   transform: scale(0.9);
   animation: finalHeart 1.5s ease 0.8s forwards;
+}
+
+@keyframes finalSceneBloom {
+  0% {
+    opacity: 0;
+    transform: scale(0.97) translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 @keyframes finalHeart {
@@ -893,6 +909,21 @@ a {
   }
 }
 
+@keyframes finalLineFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .final-note,
 .final-birthday {
   opacity: 0;
@@ -904,6 +935,20 @@ a {
 .final-birthday.visible {
   opacity: 1;
   transform: translateY(0);
+  animation: finalNoteGlow 0.9s ease both;
+}
+
+@keyframes finalNoteGlow {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+    filter: blur(3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
 }
 
 .final-note {
