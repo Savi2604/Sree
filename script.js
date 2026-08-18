@@ -19,12 +19,7 @@ const photos = [
   { src: 'assets/memory-18.jpg', caption: 'Every picture with you feels like\na page from a story I never want to end. 📖💗' },
   { src: 'assets/memory-19.jpg', caption: "You make ordinary days feel like something worth remembering. 🌙\nThank you for that." },
   { src: 'assets/memory-20.jpg', caption: 'I keep coming back to this moment 🥺🤍\nbecause it just felt so right.' },
-  { src: 'assets/memory-21.jpg', caption: 'Years from now, I hope we still look at pictures like this 🌸\nand laugh about everything we have been through.' },
-  { src: 'assets/memory-22.jpg', caption: 'Sometimes, the quietest moments are the ones that speak the loudest. 🕊️✨\nI am so grateful for every silent understanding we share. 🤍' },
-  { src: 'assets/memory-23.jpg', caption: 'Through every season and every change, 🍂🌸\nI hope we always find our way back to laughter. 😂💗' },
-  { src: 'assets/memory-24.jpg', caption: 'Just a simple reminder that you are a rare gem, Sree. 💎🌷\nNever let the world dull your beautiful sparkle. ✨' },
-  { src: 'assets/memory-25.jpg', caption: "Looking back at how far we've come... 🌠\nI wouldn't trade these memories for anything in the world. 🗺️💞" },
-  { src: 'assets/memory-26.jpg', caption: "Here's to the pages we've written and the chapters yet to come. 📖🥂\nMay our story only grow warmer and sweeter. 🍯🌸" }
+  { src: 'assets/memory-21.jpg', caption: 'Years from now, I hope we still look at pictures like this 🌸\nand laugh about everything we have been through.' }
 ];
 
 const siteMain = document.getElementById('site-main');
