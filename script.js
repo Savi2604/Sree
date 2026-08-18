@@ -1,12 +1,25 @@
 const photos = [
-  { src: 'assets/memory-1.jpg', caption: 'Some pictures are just pictures...\nbut somehow, this one always makes me smile.' },
-  { src: 'assets/memory-2.jpg', caption: "I don't know when we became this close,\nbut I'm really glad we did." },
-  { src: 'assets/memory-3.jpg', caption: 'We have had so many random conversations,\nrandom laughs and random moments...\nand somehow, those became my favourite memories.' },
-  { src: 'assets/memory-4.jpg', caption: 'Looking at this picture makes me realise\nhow much we have grown together.' },
-  { src: 'assets/memory-5.jpg', caption: 'These silly little moments may not mean much to anyone else,\nbut I know I will miss them someday.' },
-  { src: 'assets/memory-6.jpg', caption: "Sometimes I don't even have to explain what I'm feeling.\nYou just understand." },
-  { src: 'assets/memory-7.jpg', caption: "I wish I could keep some moments exactly like this forever." },
-  { src: 'assets/memory-8.jpg', caption: 'And if I could choose one thing for our future,\nit would be to make many more memories like these.' }
+  { src: 'assets/memory-1.jpg', caption: 'Some pictures are just pictures... 🤍\nbut somehow, this one always makes me smile.' },
+  { src: 'assets/memory-2.jpg', caption: "I don't know when we became this close, 🌸\nbut I'm really glad we did." },
+  { src: 'assets/memory-3.jpg', caption: 'So many random conversations, random laughs... 💫\nand somehow, those became my favourite memories.' },
+  { src: 'assets/memory-4.jpg', caption: 'Looking at this makes me realise 🌷\nhow much we have grown together.' },
+  { src: 'assets/memory-5.jpg', caption: 'These silly little moments may not mean much to anyone else 🥺\nbut I know I will miss them someday.' },
+  { src: 'assets/memory-6.jpg', caption: "Sometimes I don't even have to explain what I'm feeling. 💗\nYou just understand." },
+  { src: 'assets/memory-7.jpg', caption: "I wish I could freeze some moments exactly like this. 🕊️\nForever." },
+  { src: 'assets/memory-8.jpg', caption: 'If I could choose one thing for our future... 🌙\nit would be to make many more memories like these.' },
+  { src: 'assets/memory-9.jpg', caption: 'Every time I look at this, 🥹\nI remember exactly how happy I felt that day.' },
+  { src: 'assets/memory-10.jpg', caption: "There are some people you meet and think,\n'I hope this person stays.' 💛\nYou are one of those people." },
+  { src: 'assets/memory-11.jpg', caption: 'Some moments are too soft to put into words. 🌼\nThis is one of them.' },
+  { src: 'assets/memory-12.jpg', caption: "You've seen me at my worst and stayed. 💕\nThat means more than I ever say." },
+  { src: 'assets/memory-13.jpg', caption: "I don't know what I did to deserve a friend like you. 🤍\nBut I'm really glad I have you." },
+  { src: 'assets/memory-14.jpg', caption: 'This little moment is living rent-free in my heart. 🩷\nAnd I never want to forget it.' },
+  { src: 'assets/memory-15.jpg', caption: 'Some days feel ordinary until you look back 🌸\nand realise they were actually beautiful.' },
+  { src: 'assets/memory-16.jpg', caption: 'There is something really special about people\nwho make you feel seen. ✨\nYou are one of them.' },
+  { src: 'assets/memory-17.jpg', caption: 'I think about moments like these 🌷\nwhen I need a reminder of what truly matters.' },
+  { src: 'assets/memory-18.jpg', caption: 'Every picture with you feels like\na page from a story I never want to end. 📖💗' },
+  { src: 'assets/memory-19.jpg', caption: "You make ordinary days feel like something worth remembering. 🌙\nThank you for that." },
+  { src: 'assets/memory-20.jpg', caption: 'I keep coming back to this moment 🥺🤍\nbecause it just felt so right.' },
+  { src: 'assets/memory-21.jpg', caption: 'Years from now, I hope we still look at pictures like this 🌸\nand laugh about everything we have been through.' }
 ];
 
 const siteMain = document.getElementById('site-main');
