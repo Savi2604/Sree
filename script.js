@@ -39,17 +39,17 @@ const secretKeyValue = '20-08-2005';
 
 function resetLockScreen() {
   if (secretScreen) {
-    secretScreen.classList.remove('hidden');
+    secretScreen.classList.add('hidden');
     secretScreen.classList.remove('unlocking');
   }
 
   if (siteMain) {
-    siteMain.classList.add('hidden');
-    siteMain.classList.remove('visible');
+    siteMain.classList.remove('hidden');
+    siteMain.classList.add('visible');
   }
 
   if (musicWidget) {
-    musicWidget.classList.add('hidden');
+    musicWidget.classList.remove('hidden');
   }
 
   if (secretError) {
@@ -449,7 +449,7 @@ function initializeWebsite() {
 
   window.addEventListener('load', () => {
     if (secretKeyInput) {
-      secretKeyInput.focus();
+      secretKeyInput.blur();
     }
   });
 }

@@ -54,9 +54,10 @@ button, input, a { font: inherit; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
+  .floating-heart, .floating-flower, .floating-butterfly,
+  .floating-spark, .heart, .star {
+    animation: none !important;
+    opacity: 0 !important;
   }
 }
 
@@ -189,12 +190,11 @@ button, input, a { font: inherit; }
   padding: 34px 26px 28px;
   text-align: center;
   box-shadow: 0 30px 70px rgba(0,0,0,0.28);
-  opacity: 0;
-  transform: translateY(22px) scale(0.96);
-  animation: cardReveal 1.2s ease 0.5s forwards;
+  animation: cardReveal 0.9s cubic-bezier(0.22,0.9,0.36,1) 0.3s both;
 }
 @keyframes cardReveal {
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from { opacity: 0; transform: translateY(22px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 .secret-card.shake { animation: gentleShake 0.48s ease-in-out; }
 @keyframes gentleShake {
@@ -223,7 +223,7 @@ button, input, a { font: inherit; }
   margin-bottom: 8px;
   color: rgba(255,255,255,0.8);
   letter-spacing: 0.14em; text-transform: uppercase; font-size: 0.68rem;
-  opacity: 0; animation: fadeUp 0.9s ease 1.2s forwards;
+  animation: fadeUp 0.7s ease 1s both;
 }
 .secret-card h2 {
   margin-bottom: 6px;
@@ -232,15 +232,13 @@ button, input, a { font: inherit; }
   font-size: clamp(1.7rem,4.5vw,2.8rem);
   line-height: 1.2;
   color: #f7eae6;
-  opacity: 0; transform: translateY(12px);
-  animation: fadeUp 0.9s ease 1.6s forwards;
+  animation: fadeUp 0.7s ease 1.3s both;
 }
 .secret-tagline {
   margin-bottom: 22px;
   color: rgba(255,255,255,0.65);
   font-size: 0.88rem;
-  opacity: 0; transform: translateY(12px);
-  animation: fadeUp 0.9s ease 2s forwards;
+  animation: fadeUp 0.7s ease 1.6s both;
 }
 
 #secret-form {
