@@ -150,6 +150,7 @@ function typeLine(el, text, speed = 35) {
 
 function revealMessages() {
   showSection('little-something');
+  showSection('tell-you-one-thing');
 
   messages.forEach((line, index) => {
     setTimeout(() => {
