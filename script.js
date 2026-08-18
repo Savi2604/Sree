@@ -445,7 +445,7 @@ function initializeWebsite() {
   renderScrapbook();
   createBackgroundLayer();
 
-  resetLockScreen();
+  // Don't call resetLockScreen() - keep unlock screen visible by default
 
   window.addEventListener('load', () => {
     if (secretKeyInput) {
