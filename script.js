@@ -301,11 +301,33 @@ function initializeWebsite() {
 
   // Hook the hero "Open the story" button to start music + photo slideshow
   const heroButton = document.querySelector('.hero-button');
+  let slideshowStarted = false;
+
+  function startSlideshow() {
+    if (slideshowStarted) return;
+    slideshowStarted = true;
+    unlockWebsite();
+  }
+
   if (heroButton) {
     heroButton.addEventListener('click', (e) => {
       e.preventDefault();
-      unlockWebsite();
+      startSlideshow();
     });
+  }
+
+  // Fallback: also start when user scrolls to the memory/photo section
+  const memorySec = document.querySelector('.memory-story');
+  if (memorySec) {
+    const scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          startSlideshow();
+          scrollObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    scrollObserver.observe(memorySec);
   }
 
   siteMain?.classList.remove('hidden');
