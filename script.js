@@ -21,8 +21,7 @@ const captionBox = document.getElementById('caption-box');
 const messages = document.querySelectorAll('.message-line');
 const wishes = document.querySelectorAll('.wish-line');
 const finalText = document.querySelectorAll('.final-text');
-const finalNote = document.querySelector('.final-note');
-const finalBirthday = document.querySelector('.final-birthday');
+const finalNotes = document.querySelectorAll('.final-note');
 const photoVariants = ['variant-1', 'variant-2', 'variant-3', 'variant-4', 'variant-5', 'variant-6', 'variant-7', 'variant-8'];
 const captionVariants = ['variant-1', 'variant-2', 'variant-3', 'variant-4', 'variant-5', 'variant-6', 'variant-7', 'variant-8'];
 
@@ -174,17 +173,11 @@ function revealFinal() {
     }
   }, 4300);
 
-  setTimeout(() => {
-    if (finalNote) {
-      finalNote.classList.add('visible');
-    }
-  }, 6200);
-
-  setTimeout(() => {
-    if (finalBirthday) {
-      finalBirthday.classList.add('visible');
-    }
-  }, 7600);
+  finalNotes.forEach((note, index) => {
+    setTimeout(() => {
+      note.classList.add('visible');
+    }, 6200 + index * 600);
+  });
 }
 
 let currentPhoto = 0;
@@ -301,6 +294,8 @@ function initializeWebsite() {
   siteMain?.classList.remove('hidden');
   siteMain?.classList.add('visible');
   musicWidget?.classList.remove('hidden');
+
+  createBackgroundLayer();
 }
 
 initializeWebsite();
