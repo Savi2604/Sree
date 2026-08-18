@@ -258,6 +258,9 @@ function unlockWebsite() {
       if (musicToggle) {
         musicToggle.classList.add('is-playing');
       }
+      if (musicStatus) {
+        musicStatus.textContent = '♫ Playing our memories...';
+      }
     }).catch(() => {
       if (musicStatus) {
         musicStatus.textContent = 'Tap to play music';
@@ -265,6 +268,11 @@ function unlockWebsite() {
     });
   }
 
+  // Smooth scroll to memory section then start slideshow
+  const memorySec = document.querySelector('.memory-story');
+  if (memorySec) {
+    memorySec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
   setTimeout(() => showPhoto(0), 300);
 }
 
@@ -288,6 +296,15 @@ function initializeWebsite() {
     audio.addEventListener('pause', () => {
       musicStatus.textContent = '♫ Music paused';
       musicToggle.classList.remove('is-playing');
+    });
+  }
+
+  // Hook the hero "Open the story" button to start music + photo slideshow
+  const heroButton = document.querySelector('.hero-button');
+  if (heroButton) {
+    heroButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      unlockWebsite();
     });
   }
 
