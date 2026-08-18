@@ -4,7 +4,6 @@ const photos = [
   { src: 'assets/memory-3.jpg', caption: 'So many random conversations, random laughs... 💫\nand somehow, those became my favourite memories.' },
   { src: 'assets/memory-4.jpg', caption: 'Looking at this makes me realise 🌷\nhow much we have grown together.' },
   { src: 'assets/memory-5.jpg', caption: 'These silly little moments may not mean much to anyone else 🥺\nbut I know I will miss them someday.' },
-  { src: 'assets/memory-6.jpg', caption: "Sometimes I don't even have to explain what I'm feeling. 💗\nYou just understand." },
   { src: 'assets/memory-7.jpg', caption: "I wish I could freeze some moments exactly like this. 🕊️\nForever." },
   { src: 'assets/memory-8.jpg', caption: 'If I could choose one thing for our future... 🌙\nit would be to make many more memories like these.' },
   { src: 'assets/memory-9.jpg', caption: 'Every time I look at this, 🥹\nI remember exactly how happy I felt that day.' },
@@ -22,30 +21,44 @@ const photos = [
   { src: 'assets/memory-21.jpg', caption: 'Years from now, I hope we still look at pictures like this 🌸\nand laugh about everything we have been through.' }
 ];
 
+const secretScreen = document.getElementById('secret-screen');
+const secretCard = document.getElementById('secret-card');
+const secretForm = document.getElementById('secret-form');
+const secretKeyInput = document.getElementById('secret-key');
+const unlockButton = document.getElementById('unlock-button');
+const secretError = document.getElementById('secret-error');
 const siteMain = document.getElementById('site-main');
 const musicWidget = document.getElementById('music-widget');
 const musicToggle = document.getElementById('music-toggle');
 const musicStatus = document.getElementById('music-status');
 const audio = document.getElementById('memory-audio');
-const photoCard = document.getElementById('photo-card');
-const memoryImage = document.getElementById('memory-image');
-const memoryCaption = document.getElementById('memory-caption');
-const captionBox = document.getElementById('caption-box');
-const messages = document.querySelectorAll('.message-line');
 const wishes = document.querySelectorAll('.wish-line');
 const finalText = document.querySelectorAll('.final-text');
 const finalNotes = document.querySelectorAll('.final-note');
-const photoVariants = ['variant-1', 'variant-2', 'variant-3', 'variant-4', 'variant-5', 'variant-6', 'variant-7', 'variant-8'];
-const captionVariants = ['variant-1', 'variant-2', 'variant-3', 'variant-4', 'variant-5', 'variant-6', 'variant-7', 'variant-8'];
+const secretKeyValue = '20-08-2005';
 
 function resetLockScreen() {
+  if (secretScreen) {
+    secretScreen.classList.remove('hidden');
+    secretScreen.classList.remove('unlocking');
+  }
+
   if (siteMain) {
-    siteMain.classList.remove('hidden');
-    siteMain.classList.add('visible');
+    siteMain.classList.add('hidden');
+    siteMain.classList.remove('visible');
   }
 
   if (musicWidget) {
-    musicWidget.classList.remove('hidden');
+    musicWidget.classList.add('hidden');
+  }
+
+  if (secretError) {
+    secretError.textContent = '';
+    secretError.classList.remove('visible');
+  }
+
+  if (secretKeyInput) {
+    secretKeyInput.value = '';
   }
 }
 
@@ -79,39 +92,87 @@ function createBackgroundLayer() {
   const background = document.getElementById('floating-background');
   if (!background) return;
 
-  for (let i = 0; i < 22; i += 1) {
+  background.innerHTML = '';
+
+  for (let i = 0; i < 15; i += 1) {
     const heart = document.createElement('span');
     heart.className = 'floating-heart';
     heart.textContent = Math.random() > 0.5 ? '♡' : '♥';
     heart.style.left = `${Math.random() * 100}%`;
-    heart.style.bottom = `${-12 - Math.random() * 18}%`;
-    heart.style.fontSize = `${10 + Math.random() * 16}px`;
-    heart.style.opacity = `${0.25 + Math.random() * 0.6}`;
-    heart.style.animationDuration = `${10 + Math.random() * 18}s`;
-    heart.style.animationDelay = `${Math.random() * 8}s`;
+    heart.style.bottom = `${-10 - Math.random() * 10}%`;
+    heart.style.fontSize = `${12 + Math.random() * 16}px`;
+    heart.style.opacity = `${0.2 + Math.random() * 0.5}`;
+    heart.style.animationDuration = `${8 + Math.random() * 12}s`;
+    heart.style.animationDelay = `${Math.random() * 6}s`;
     background.appendChild(heart);
   }
 
-  for (let i = 0; i < 10; i += 1) {
+  for (let i = 0; i < 8; i += 1) {
     const butterfly = document.createElement('span');
     butterfly.className = 'floating-butterfly';
     butterfly.style.left = `${Math.random() * 100}%`;
-    butterfly.style.top = `${Math.random() * 95}%`;
-    butterfly.style.setProperty('--duration', `${16 + Math.random() * 18}s`);
-    butterfly.style.opacity = `${0.25 + Math.random() * 0.55}`;
-    butterfly.style.transform = `scale(${0.7 + Math.random() * 0.7})`;
+    butterfly.style.top = `${Math.random() * 90}%`;
+    butterfly.style.setProperty('--duration', `${12 + Math.random() * 12}s`);
+    butterfly.style.opacity = `${0.3 + Math.random() * 0.4}`;
+    butterfly.style.transform = `scale(${0.6 + Math.random() * 0.6})`;
     background.appendChild(butterfly);
   }
 
-  for (let i = 0; i < 32; i += 1) {
+  const flowers = ['🌸', '🌷', '🌼', '🌺'];
+  for (let i = 0; i < 10; i += 1) {
+    const flower = document.createElement('span');
+    flower.className = 'floating-flower';
+    flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+    flower.style.left = `${Math.random() * 100}%`;
+    flower.style.bottom = `${-10 - Math.random() * 10}%`;
+    flower.style.fontSize = `${14 + Math.random() * 14}px`;
+    flower.style.opacity = `${0.25 + Math.random() * 0.45}`;
+    flower.style.animationDuration = `${10 + Math.random() * 15}s`;
+    flower.style.animationDelay = `${Math.random() * 8}s`;
+    background.appendChild(flower);
+  }
+
+  for (let i = 0; i < 25; i += 1) {
     const spark = document.createElement('span');
     spark.className = 'floating-spark';
     spark.style.left = `${Math.random() * 100}%`;
     spark.style.top = `${Math.random() * 100}%`;
-    spark.style.setProperty('--duration', `${2 + Math.random() * 5}s`);
-    spark.style.opacity = `${0.2 + Math.random() * 0.8}`;
+    spark.style.setProperty('--duration', `${3 + Math.random() * 4}s`);
+    spark.style.opacity = `${0.25 + Math.random() * 0.55}`;
     background.appendChild(spark);
   }
+}
+
+function renderScrapbook() {
+  const photoStage = document.querySelector('.photo-stage');
+  if (!photoStage) return;
+
+  photoStage.innerHTML = '';
+
+  photos.forEach((photo, index) => {
+    const card = document.createElement('div');
+    card.className = 'polaroid-card section-fade';
+    
+    // Stagger angle variation based on index
+    const angle = (Math.sin(index) * 2.8).toFixed(1);
+    card.style.setProperty('--tilt-angle', `${angle}deg`);
+    
+    const img = document.createElement('img');
+    img.src = photo.src;
+    img.alt = `Memory ${index + 1}`;
+    img.loading = 'lazy';
+    
+    const captionContainer = document.createElement('div');
+    captionContainer.className = 'polaroid-caption';
+    
+    const captionText = document.createElement('p');
+    captionText.innerHTML = photo.caption.replace(/\n/g, '<br>');
+    
+    captionContainer.appendChild(captionText);
+    card.appendChild(img);
+    card.appendChild(captionContainer);
+    photoStage.appendChild(card);
+  });
 }
 
 function showSection(sectionId) {
@@ -121,11 +182,34 @@ function showSection(sectionId) {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
+        if (sectionId === 'little-something') {
+          revealMessages();
+        } else if (sectionId === 'wishes') {
+          revealWishes();
+        } else if (sectionId === 'tell-you-one-thing') {
+          revealTellYouOneThing();
+        } else if (sectionId === 'final-block') {
+          revealFinal();
+        }
         obs.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.2 });
+  }, { threshold: 0.15 });
   observer.observe(section);
+}
+
+function setupScrollReveal() {
+  const cards = document.querySelectorAll('.polaroid-card');
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+  cards.forEach(card => observer.observe(card));
 }
 
 function typeLine(el, text, speed = 35) {
@@ -144,26 +228,31 @@ function typeLine(el, text, speed = 35) {
 }
 
 function revealMessages() {
-  showSection('little-something');
-  showSection('tell-you-one-thing');
-
-  messages.forEach((line, index) => {
+  const littleSomethingLines = document.querySelectorAll('#little-something .message-line');
+  littleSomethingLines.forEach((line, index) => {
     setTimeout(() => {
       line.classList.add('visible');
       if (index === 0 || index === 1) {
         typeLine(line, line.textContent.trim(), 22);
       }
-    }, 700 + index * 1100);
+    }, 300 + index * 1000);
   });
 }
 
 function revealWishes() {
-  showSection('wishes');
-
   wishes.forEach((line, index) => {
     setTimeout(() => {
       line.classList.add('visible');
-    }, 700 + index * 1000);
+    }, 300 + index * 900);
+  });
+}
+
+function revealTellYouOneThing() {
+  const tellYouLines = document.querySelectorAll('#tell-you-one-thing .message-line');
+  tellYouLines.forEach((line, index) => {
+    setTimeout(() => {
+      line.classList.add('visible');
+    }, 300 + index * 900);
   });
 }
 
@@ -176,66 +265,21 @@ function revealFinal() {
   finalText.forEach((line, index) => {
     setTimeout(() => {
       line.classList.add('visible');
-    }, 700 + index * 1000);
+    }, 500 + index * 1100);
   });
 
   setTimeout(() => {
     const finalStrong = document.querySelector('.final-strong');
     if (finalStrong) {
-      finalStrong.style.opacity = '1';
-      finalStrong.style.transform = 'scale(1)';
+      finalStrong.classList.add('visible');
     }
-  }, 4300);
+  }, 1100 * finalText.length + 300);
 
   finalNotes.forEach((note, index) => {
     setTimeout(() => {
       note.classList.add('visible');
-    }, 6200 + index * 600);
+    }, 1100 * finalText.length + 1200 + index * 700);
   });
-}
-
-let currentPhoto = 0;
-let photoTimer = null;
-
-function showPhoto(index) {
-  clearTimeout(photoTimer);
-
-  const photo = photos[index];
-  const variantClass = photoVariants[index % photoVariants.length];
-  const captionVariantClass = captionVariants[index % captionVariants.length];
-
-  photoCard.classList.remove('show', 'photo-leaving', 'variant-1', 'variant-2', 'variant-3', 'variant-4', 'variant-5', 'variant-6', 'variant-7', 'variant-8');
-  captionBox.classList.remove('visible', 'variant-1', 'variant-2', 'variant-3', 'variant-4', 'variant-5', 'variant-6', 'variant-7', 'variant-8');
-  void photoCard.offsetWidth;
-
-  memoryImage.src = photo.src;
-  memoryImage.alt = `Memory ${index + 1}`;
-  memoryCaption.innerHTML = photo.caption.replace(/\n/g, '<br>');
-
-  photoCard.classList.add(variantClass, 'show');
-  captionBox.classList.add(captionVariantClass);
-
-  setTimeout(() => {
-    captionBox.classList.add('visible');
-  }, 900);
-
-  const delay = 5200;
-  photoTimer = setTimeout(() => {
-    photoCard.classList.add('photo-leaving');
-    captionBox.classList.remove('visible');
-
-    setTimeout(() => {
-      currentPhoto += 1;
-      if (currentPhoto < photos.length) {
-        showPhoto(currentPhoto);
-      } else {
-        document.getElementById('little-something').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setTimeout(revealMessages, 500);
-        setTimeout(revealWishes, 9000);
-        setTimeout(revealFinal, 17000);
-      }
-    }, 900);
-  }, delay);
 }
 
 function toggleMusic() {
@@ -257,6 +301,10 @@ function toggleMusic() {
 }
 
 function unlockWebsite() {
+  if (secretScreen) {
+    secretScreen.classList.add('hidden');
+  }
+
   if (siteMain) {
     siteMain.classList.remove('hidden');
     siteMain.classList.add('visible');
@@ -282,12 +330,71 @@ function unlockWebsite() {
     });
   }
 
-  // Smooth scroll to memory section then start slideshow
-  const memorySec = document.querySelector('.memory-story');
-  if (memorySec) {
-    memorySec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Smooth scroll to top of main content
+  const firstSection = document.querySelector('.hero');
+  if (firstSection) {
+    firstSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
-  setTimeout(() => showPhoto(0), 300);
+
+  // Set up scroll observers for text sections after unlock
+  setupTextSectionObservers();
+  setupScrollReveal();
+}
+
+function setupTextSectionObservers() {
+  const sections = [
+    { id: 'album-heading-wrapper', fn: null },
+    { id: 'little-something', fn: revealMessages },
+    { id: 'wishes', fn: revealWishes },
+    { id: 'tell-you-one-thing', fn: revealTellYouOneThing },
+    { id: 'final-block', fn: revealFinal }
+  ];
+
+  sections.forEach(({ id, fn }) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const obs = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          if (fn) fn();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    obs.observe(el);
+  });
+}
+
+function handleSecretSubmit(event) {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  if (!secretKeyInput || !secretError || !secretScreen || !secretCard) {
+    return;
+  }
+
+  const key = secretKeyInput.value.trim();
+
+  if (key === secretKeyValue) {
+    secretError.textContent = '';
+    secretError.classList.remove('visible');
+    secretScreen.classList.add('unlocking');
+    secretCard.classList.add('shake');
+    setTimeout(() => {
+      unlockWebsite();
+    }, 320);
+  } else {
+    secretError.textContent = "Oops... that's not the key ♡ Try again.";
+    secretError.classList.add('visible');
+    secretCard.classList.remove('shake');
+    void secretCard.offsetWidth;
+    secretCard.classList.add('shake');
+    secretKeyInput.value = '';
+    secretKeyInput.focus();
+  }
 }
 
 function initializeWebsite() {
@@ -296,6 +403,28 @@ function initializeWebsite() {
   }
 
   window.__birthdayWebsiteInitialized = true;
+
+  if (secretForm) {
+    secretForm.addEventListener('submit', handleSecretSubmit);
+  }
+
+  if (unlockButton) {
+    unlockButton.addEventListener('click', handleSecretSubmit);
+  }
+
+  if (secretKeyInput) {
+    secretKeyInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        handleSecretSubmit(event);
+      }
+    });
+
+    secretKeyInput.addEventListener('focus', () => {
+      if (secretError) {
+        secretError.classList.remove('visible');
+      }
+    });
+  }
 
   if (musicToggle) {
     musicToggle.addEventListener('click', toggleMusic);
@@ -313,42 +442,16 @@ function initializeWebsite() {
     });
   }
 
-  // Hook the hero "Open the story" button to start music + photo slideshow
-  const heroButton = document.querySelector('.hero-button');
-  let slideshowStarted = false;
-
-  function startSlideshow() {
-    if (slideshowStarted) return;
-    slideshowStarted = true;
-    unlockWebsite();
-  }
-
-  if (heroButton) {
-    heroButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      startSlideshow();
-    });
-  }
-
-  // Fallback: also start when user scrolls to the memory/photo section
-  const memorySec = document.querySelector('.memory-story');
-  if (memorySec) {
-    const scrollObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          startSlideshow();
-          scrollObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-    scrollObserver.observe(memorySec);
-  }
-
-  siteMain?.classList.remove('hidden');
-  siteMain?.classList.add('visible');
-  musicWidget?.classList.remove('hidden');
-
+  renderScrapbook();
   createBackgroundLayer();
+
+  resetLockScreen();
+
+  window.addEventListener('load', () => {
+    if (secretKeyInput) {
+      secretKeyInput.focus();
+    }
+  });
 }
 
 initializeWebsite();

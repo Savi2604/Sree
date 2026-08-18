@@ -5,10 +5,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Birthday, My Favourite Person</title>
+  <meta name="description" content="A personal birthday memory website made with love." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -18,34 +19,58 @@
   <div id="hearts" aria-hidden="true"></div>
   <div id="floating-background" class="floating-background" aria-hidden="true"></div>
 
-  <div id="music-widget" class="music-widget" aria-live="polite">
+  <!-- Secret unlock screen -->
+  <div id="secret-screen" class="secret-screen" aria-live="polite">
+    <div id="secret-card" class="secret-card">
+      <div class="lock-wrap">
+        <div class="lock-icon">♡</div>
+      </div>
+      <p class="secret-kicker">A little secret awaits...</p>
+      <h2>Enter the secret key<br>to unlock our memories</h2>
+      <p class="secret-tagline">Only you know this one 🌸</p>
+      <form id="secret-form" novalidate>
+        <label class="sr-only" for="secret-key">Secret key</label>
+        <input id="secret-key" name="secret-key" type="password"
+          placeholder="Enter the secret key…" autocomplete="off" autofocus />
+        <button id="unlock-button" type="submit">Unlock ♡</button>
+      </form>
+      <p id="secret-error" class="secret-error"></p>
+    </div>
+  </div>
+
+  <!-- Music widget (hidden until unlocked) -->
+  <div id="music-widget" class="music-widget hidden" aria-live="polite">
     <button id="music-toggle" type="button" class="music-toggle">
       <span class="music-icon">♫</span>
       <span id="music-status">Playing our memories...</span>
     </button>
   </div>
 
-  <main id="site-main" class="site-main">
+  <!-- Main website (hidden until unlocked) -->
+  <main id="site-main" class="site-main hidden">
+
+    <!-- Hero Section -->
     <section class="hero" aria-label="Birthday hero section">
       <div class="hero-glow" aria-hidden="true"></div>
       <div class="hero-badge">For my favorite person</div>
       <h1>Happy Birthday, <span>Sree</span></h1>
       <p class="hero-copy">A little story made with love, patience, and every soft memory we have shared.</p>
-      <a class="hero-button" href="#little-something">Open the story</a>
+      <a class="hero-button" href="#memory-album">Open the story</a>
       <div class="scroll-cue" aria-hidden="true"><span></span></div>
     </section>
 
-    <section class="memory-story" aria-live="polite">
+    <!-- Memory Album / Polaroid Scrapbook -->
+    <section id="memory-album" class="memory-story" aria-label="Memory album">
+      <div class="album-heading section-fade" id="album-heading-wrapper">
+        <p class="album-eyebrow">Our little album ✨</p>
+        <h2 class="album-title">Moments I never want to forget</h2>
+      </div>
       <div class="photo-stage">
-        <div id="photo-card" class="photo-card">
-          <img id="memory-image" src="" alt="A memory together" />
-          <div id="caption-box" class="caption-box">
-            <p id="memory-caption"></p>
-          </div>
-        </div>
+        <!-- Polaroid cards are injected dynamically by script.js -->
       </div>
     </section>
 
+    <!-- A Little Something Section -->
     <section class="message-block section-fade" id="little-something">
       <div class="section-heading">A Little Something I Want You To Know 🤍</div>
       <div class="message-stack">
@@ -61,6 +86,7 @@
       </div>
     </section>
 
+    <!-- Things I Hope For You -->
     <section class="wish-block section-fade" id="wishes">
       <div class="section-heading">Things I Hope For You 🌷</div>
       <div class="wish-stack">
@@ -74,51 +100,55 @@
       </div>
     </section>
 
+    <!-- If I Could Tell You One Thing -->
     <section class="message-block section-fade" id="tell-you-one-thing">
       <div class="section-heading">If I Could Tell You One Thing... 🤍</div>
       <div class="message-stack">
-        <p class="message-line">I hope you know that you have made more ordinary days feel special than you probably
-          realise. 🌼</p>
-        <p class="message-line">There are so many little moments with you that I never thought I would remember this
-          clearly. 🥹</p>
-        <p class="message-line">Sometimes I look at an old picture and suddenly remember exactly how happy I felt that
-          day. 📸💗</p>
-        <p class="message-line">You have seen different versions of me, and I am really glad you were there for all of
-          them. 🤍</p>
+        <p class="message-line">I hope you know that you have made more ordinary days feel special than you probably realise. 🌼</p>
+        <p class="message-line">There are so many little moments with you that I never thought I would remember this clearly. 🥹</p>
+        <p class="message-line">Sometimes I look at an old picture and suddenly remember exactly how happy I felt that day. 📸💗</p>
+        <p class="message-line">You have seen different versions of me, and I am really glad you were there for all of them. 🤍</p>
         <p class="message-line">Even if we don't speak every single day, the bond we share is something I carry with me everywhere. 🔗💗</p>
         <p class="message-line">No matter where life takes us or how busy we get, you will always have a special corner in my heart. 🗝️🤍</p>
-        <p class="message-line">I hope life gives you the kind of happiness that stays even after the excitement of a
-          good day is over. 🌙</p>
-        <p class="message-line">And I hope years from now, we can still look at these pictures and laugh at the same
-          silly things. 😂🌸</p>
+        <p class="message-line">I hope life gives you the kind of happiness that stays even after the excitement of a good day is over. 🌙</p>
+        <p class="message-line">And I hope years from now, we can still look at these pictures and laugh at the same silly things. 😂🌸</p>
       </div>
     </section>
 
+    <!-- Final Emotional Section -->
     <section class="final-block section-fade" id="final-block">
       <div class="final-stars" aria-hidden="true"></div>
       <div class="final-inner">
         <p class="final-small">Before this little surprise ends...</p>
-        <p class="final-text slow">I don't know what the future will look like, 🌙</p>
-        <p class="final-text slow">but I know there are still so many moments I want us to have.</p>
-        <p class="final-text slow">More random pictures. 📸</p>
-        <p class="final-text slow">More unnecessary laughing. 😂</p>
-        <p class="final-text slow">More conversations that somehow last forever. 🤍</p>
-        <p class="final-text slow">More days we never want to forget. 🌸</p>
-        <p class="final-text slow gap">Maybe one day we'll look back at all of this ✨</p>
-        <p class="final-text slow">and realise how beautiful these little years really were.</p>
-        <p class="final-text slow gap">Until then... 🕊️</p>
-        <p class="final-text slow">let's keep making memories. 🤍</p>
-        <h2 class="final-strong">Happy Birthday 🎂</h2>
+
+        <p class="final-text">Maybe one day we'll look back at all of this... ✨</p>
+        <p class="final-text">and realise how beautiful these little years really were. 🥹</p>
+
+        <p class="final-text gap">Every laugh, every silly moment,</p>
+        <p class="final-text">every little memory... ❤️</p>
+
+        <p class="final-text gap">Some memories don't need a reason to stay.</p>
+        <p class="final-text">They just do. 🦋</p>
+
+        <p class="final-text gap">Until then... 🌷</p>
+        <p class="final-text">Let's keep making memories. 🤍</p>
+
+        <h2 class="final-strong">Happy Birthday,<br>my favourite person. 🎂❤️</h2>
+
         <p class="final-note">Here's to everything we've been, 🌷</p>
         <p class="final-note">everything we are, 💗</p>
         <p class="final-note">and everything still waiting for us. 🌠</p>
       </div>
     </section>
+
   </main>
 
-  <audio id="memory-audio" src="assets/WhatsApp%20Audio%202026-08-17%20at%201.27.40%20PM.mpeg" preload="auto"></audio>
+  <audio id="memory-audio"
+    src="assets/WhatsApp%20Audio%202026-08-17%20at%201.27.40%20PM.mpeg"
+    preload="auto"
+    loop></audio>
 
-  <script src="script.js?v=5"></script>
+  <script src="script.js?v=6"></script>
 </body>
 
 </html>
