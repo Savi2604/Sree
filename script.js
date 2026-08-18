@@ -359,3 +359,25 @@ function initializeWebsite() {
 initializeWebsite();
 createHearts();
 createStars();
+
+// Pause music when page is hidden (switching tabs/minimizing) and resume when active
+document.addEventListener('visibilitychange', () => {
+  if (!audio) return;
+  if (document.hidden) {
+    if (!audio.paused) {
+      audio.pause();
+      audio.wasPlayingBeforeHidden = true;
+    }
+  } else {
+    if (audio.wasPlayingBeforeHidden) {
+      audio.play().then(() => {
+        musicStatus.textContent = '♫ Playing our memories...';
+        musicToggle?.classList.add('is-playing');
+      }).catch(() => {
+        musicStatus.textContent = 'Tap to play music';
+        musicToggle?.classList.remove('is-playing');
+      });
+      audio.wasPlayingBeforeHidden = false;
+    }
+  }
+});
